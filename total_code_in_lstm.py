@@ -32,7 +32,7 @@ def review_to_wordlist(review,remove_stop_words=False):
 
     #5. reutrn a list of words
     return words
-
+ 
 #test review to wordlist
 word=[]
 n=train_data['review']
