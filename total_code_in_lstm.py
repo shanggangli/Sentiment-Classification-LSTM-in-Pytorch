@@ -13,9 +13,7 @@ from torch.utils.data import Dataset,TensorDataset
 import torch.nn as nn
 
 
-train_data=pd.read_table(r'C:\Users\朝花夕拾\Desktop\机器学习\kaggle\word2vec-nlp-tutorial\labeledTrainData.tsv',header=0,delimiter="\t", quoting=3)
-test_data=pd.read_table(r'C:\Users\朝花夕拾\Desktop\机器学习\kaggle\word2vec-nlp-tutorial\testData.tsv',header=0,delimiter="\t", quoting=3)
-unlabeled_train_data=pd.read_table(r'C:\Users\朝花夕拾\Desktop\机器学习\kaggle\word2vec-nlp-tutorial\unlabeledTrainData.tsv',header=0,delimiter="\t", quoting=3,error_bad_lines=False)
+train_data=pd.read_table(r'...\labeledTrainData.tsv',header=0,delimiter="\t", quoting=3)
 
 def review_to_wordlist(review,remove_stop_words=False):
     #1.remove HIML
@@ -127,6 +125,7 @@ load_train=torch.utils.data.DataLoader(dataset=deal_traindata, batch_size=BATCH_
 optimizer = torch.optim.Adam(lstm.parameters(), lr=LR)   # optimize all cnn parameters
 loss_func=nn.CrossEntropyLoss()                          # loss function is CrossEntropyLoss
 
+# train model
 for epoch in range(Epoch):
     for step ,(x,label) in enumerate(load_train):
         # print(x.shape)
@@ -139,7 +138,7 @@ for epoch in range(Epoch):
         loss.backward()                                 # backpropagation, compute gradients
         optimizer.step()                                # apply gradients
         if step%50==0:
-            output_test=lstm(X_test)                    # test model and print loss and accuracy
+            output_test=lstm(X_test)                    # test model and print:loss and accuracy
             pred_y = torch.max(output_test, 1)[1].data.numpy()
             # print(pred_y.shape)
             # print(y_test.shape)
